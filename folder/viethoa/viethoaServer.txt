@@ -1,0 +1,33 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package TH3;
+
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+
+/**
+ *
+ * @author ASUSTUFGAMING
+ */
+public class viethoaServer {
+    public static void main(String[] args) throws Exception {
+        ServerSocket serverSocket = new ServerSocket(2345);
+        while(true) {
+            System.out.println("client ket noi den: ");
+            Socket socket = serverSocket.accept();
+            
+            Scanner inServer = new Scanner(socket.getInputStream());
+            PrintWriter outServer = new PrintWriter(socket.getOutputStream(),true);
+            
+            String s = inServer.nextLine(); //doc du leiu tu client
+            String ss = s.toUpperCase(); //chuuyen thanh chu hoa
+            System.out.println(s);
+            outServer.println(ss); //gui ss ve client 
+            socket.close();
+        }
+    }
+}

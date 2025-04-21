@@ -1,0 +1,57 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package thith;
+
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Scanner;
+
+/**
+ *
+ * @author ASUSTUFGAMING
+ */
+public class SPMTServerThread extends Thread{
+    private static ServerSocket serverSocket;
+    private static Socket socket;
+
+    @Override
+    public void run() {
+        try {
+            Scanner inServer = new Scanner(socket.getInputStream());
+            PrintWriter outServer = new PrintWriter(socket.getOutputStream(),true);
+
+            String cp = inServer.nextLine();
+            String cmd = cp.substring(0,cp.indexOf(" "));
+            cp = cp.substring(cp.indexOf(" ")+ 1);
+
+            String aS = cp.substring(0, cp.indexOf(" "));
+            String bS = cp.substring(cp.indexOf(" ") + 1);
+
+            int a = Integer.parseInt(aS);
+            int b = Integer.parseInt(bS);
+            String kq = "";
+
+            if(cmd.equalsIgnoreCase("SUM")){
+                kq = "tong" + (a+b);
+            }else{
+                kq = "tich " + (a*b);
+            }
+            outServer.println(kq);
+            socket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void main(String[] args) throws Exception{
+        serverSocket = new ServerSocket(2345);
+        while (true){
+            socket = serverSocket.accept();
+            SPMTServerThread sp = new SPMTServerThread();
+            sp.start();
+        }
+    }
+    
+}

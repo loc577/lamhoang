@@ -1,0 +1,32 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package thith;
+
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.Scanner;
+
+/**
+ *
+ * @author ASUSTUFGAMING
+ */
+public class LTClient {
+    public static void main(String[] args) throws Exception{
+        Socket socket = new Socket("localhost", 2345);
+        
+        Scanner inClient = new Scanner(socket.getInputStream());
+        PrintWriter outClient = new PrintWriter(socket.getOutputStream(),true);
+        
+        Scanner inputKB = new Scanner(System.in);
+        System.out.println("nhap cu phap");
+        String cp = inputKB.nextLine();
+        
+        outClient.println(cp);
+        String kq = inClient.nextLine();
+        System.out.println(kq);
+        socket.close();
+        
+    }
+}

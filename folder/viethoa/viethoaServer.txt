@@ -25,6 +25,7 @@ public class CAPServer {
             System.out.println(s);
             String ss = s.toUpperCase();
             System.out.println(ss);
+            outServer.println(ss);
             socket.close();
         }
     }

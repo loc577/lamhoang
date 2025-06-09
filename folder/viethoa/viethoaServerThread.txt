@@ -6,8 +6,8 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class CAPServerThread extends Thread{
-    public static Socket socket;
-    public static ServerSocket serverSocket;
+    private static Socket socket;
+    private static ServerSocket serverSocket;
     @Override
     public void run() {
         try {

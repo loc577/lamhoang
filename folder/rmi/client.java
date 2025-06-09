@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package rmi;
 import java.rmi.Naming;
-/**
- *
- * @author ASUSTUFGAMING
- */
+
 public class client {
     public static void main(String[] args) throws Exception{
         tongtichinterface tt = (tongtichinterface) Naming.lookup("rmi://localhost/tt");

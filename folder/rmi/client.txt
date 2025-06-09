@@ -1,0 +1,17 @@
+package rmi;
+
+import java.rmi.Naming;
+
+public class client {
+public static void main(String[] args) throws Exception{
+	tinhtongitf tt = (tinhtongitf) Naming.lookup("rmi://localhost/tt");
+	int b = tt.luythua(5, 2);
+	double a = tt.phanso(7);
+	int c = tt.tich(6);
+	int d = tt.tong(10);
+	System.out.println("tong la: "+ d);
+	System.out.println("tich la: "+ c);
+	System.out.println("tong phan so la: "+ a);
+	System.out.println("tong luy thua la: "+ b);
+}
+}

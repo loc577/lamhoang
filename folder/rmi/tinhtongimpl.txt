@@ -1,0 +1,49 @@
+package rmi;
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+public class tinhtongimpl extends UnicastRemoteObject implements tinhtongitf{
+
+	public tinhtongimpl() throws RemoteException {
+		super();
+	}
+
+	@Override
+	public int luythua(int n, int k) throws RemoteException {
+		int l = 0;
+		for(int i = 0;i<=n;i++) {
+			l = (int) (l + Math.pow(n, k));
+		}
+			
+		return l;
+	}
+
+	@Override
+	public double phanso(int a) throws RemoteException {
+		double s = 0;
+		for(int i = 1;i<=a;i++) {
+			s = s+ 1.0/i;
+		}
+		return s;
+	}
+
+	@Override
+	public int tong(int b) throws RemoteException {
+		int s = 0;
+		for(int i=1;i<=b;i++) {
+			s = s+i;
+		}
+		return s;
+	}
+
+	@Override
+	public int tich(int c) throws RemoteException {
+		int m = 1;
+		for(int i = 1;i<=c;i++) {
+			m = m*i;
+		}
+		return m;
+	}
+
+}

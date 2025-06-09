@@ -1,0 +1,11 @@
+package rmi;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface tinhtongitf extends Remote{
+	public int luythua(int n, int k) throws RemoteException;
+	public double phanso(int a) throws RemoteException;
+	public int tong(int b) throws RemoteException;
+	public int tich(int c) throws RemoteException;
+}

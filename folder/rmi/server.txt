@@ -1,0 +1,11 @@
+package rmi;
+
+import java.rmi.Naming;
+
+public class server {
+	public static void main(String[] args) throws Exception{
+		tinhtongimpl tt = new tinhtongimpl();
+		Naming.rebind("rmi://localhost/tt",tt);
+		System.out.println("server dang chay");
+	}
+}

@@ -1,24 +1,25 @@
-package thith;
+package viethoa;
 
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class CAPServer {
+public class server {
     public static void main(String[] args) throws Exception{
-        ServerSocket serverSocket = new ServerSocket(2345);
-        while (true){
-            Socket socket = serverSocket.accept();
-
-            Scanner inServer = new Scanner(socket.getInputStream());
-            PrintWriter outServer = new PrintWriter(socket.getOutputStream(),true);
-            String s = inServer.nextLine();
-            System.out.println(s);
-            String ss = s.toUpperCase();
-            System.out.println(ss);
-            outServer.println(ss);
-            socket.close();
-        }
+        Scanner input = new Scanner(System.in);
+        int port = input.nextInt();
+        input.nextLine();
+        ServerSocket serversocket = new ServerSocket(port);
+        Socket socket = serversocket.accept();
+        
+        Scanner inserver = new Scanner(socket.getInputStream());
+        PrintWriter outserver = new PrintWriter(socket.getOutputStream(),true);
+        
+        String s = inserver.nextLine();
+        
+        String kq = s.toUpperCase();
+        outserver.println(kq);
+        socket.close();
     }
 }

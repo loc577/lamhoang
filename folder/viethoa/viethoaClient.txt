@@ -1,22 +1,27 @@
-package thith;
+package viethoa;
 
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class CAPClient {
+public class client {
     public static void main(String[] args) throws Exception{
-        Socket socket = new Socket("localhost",2345);
+        Scanner input = new Scanner(System.in);
+        String dc = input.nextLine();
+        int port = input.nextInt();
+        input.nextLine();
+        Socket socket = new Socket(dc,port);
         
-        Scanner inClient = new Scanner(socket.getInputStream());
-        PrintWriter outClient = new PrintWriter(socket.getOutputStream(),true);
+        Scanner inclient = new Scanner (socket.getInputStream());
+        PrintWriter outclient = new PrintWriter(socket.getOutputStream(),true);
         
-        Scanner inputKB = new Scanner(System.in);
-        System.out.println("nhap vao de: ");
-        String s = inputKB.nextLine();
+        System.out.println("viethoa.client.main()");       
+        String s = input.nextLine();
+
         
-        outClient.println(s);
-        String kq = inClient.nextLine();
+        outclient.println(s);
+        
+        String kq = inclient.nextLine();
         System.out.println(kq);
         socket.close();
     }

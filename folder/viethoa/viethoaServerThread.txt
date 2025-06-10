@@ -1,33 +1,39 @@
-package thith;
+package viethoa;
 
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class CAPServerThread extends Thread{
+public class thread extends Thread{
+    private static ServerSocket serversocket;
     private static Socket socket;
-    private static ServerSocket serverSocket;
+
     @Override
     public void run() {
         try {
-            Scanner inServer = new Scanner(socket.getInputStream());
-            PrintWriter outServer = new PrintWriter(socket.getOutputStream(),true);
-            String s = inServer.nextLine();
-            String ss = s.toUpperCase();
-            outServer.println(ss);
+            Scanner inserver = new Scanner(socket.getInputStream());
+            PrintWriter outserver = new PrintWriter(socket.getOutputStream(),true);
+            
+            String s = inserver.nextLine();
+            String kq = s.toUpperCase();
+            outserver.println(kq);
             socket.close();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
     public static void main(String[] args) throws Exception{
-        ServerSocket serverSocket = new ServerSocket(2345);
-        while (true){
-            socket = serverSocket.accept();
-            CAPServerThread cc = new CAPServerThread();
-            cc.start();
+        Scanner input = new Scanner(System.in);
+        int port = input.nextInt();
+        input.nextLine();
+        serversocket = new ServerSocket(port);
+        
+        while(true){
+            socket = serversocket.accept();
+            thread tt = new thread();
+            tt.start();
         }
     }
     

@@ -1,49 +1,50 @@
-package thith;
+package tong2so;
 
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class SPMTServerThread extends Thread{
-    private static ServerSocket serverSocket;
+public class thread extends Thread{
+    private static ServerSocket serversocket;
     private static Socket socket;
-
     @Override
     public void run() {
         try {
-            Scanner inServer = new Scanner(socket.getInputStream());
-            PrintWriter outServer = new PrintWriter(socket.getOutputStream(),true);
-
-            String cp = inServer.nextLine();
-            String cmd = cp.substring(0,cp.indexOf(" "));
-            cp = cp.substring(cp.indexOf(" ")+ 1);
-
-            String aS = cp.substring(0, cp.indexOf(" "));
-            String bS = cp.substring(cp.indexOf(" ") + 1);
-
+            Scanner inserver = new Scanner(socket.getInputStream());
+            PrintWriter outserver = new PrintWriter(socket.getOutputStream(),true);
+        
+            String s = inserver.nextLine();
+            String ss = s.substring(0,s.indexOf(" "));
+            s = s.substring(s.indexOf(" ")+ 1);
+        
+            String aS = s.substring(0,s.indexOf(" "));
+            String bS = s.substring(s.indexOf(" ")+ 1);
             int a = Integer.parseInt(aS);
             int b = Integer.parseInt(bS);
-            String kq = "";
 
-            if(cmd.equalsIgnoreCase("SUM")){
-                kq = "tong" + (a+b);
+            String kq;
+            if(ss.equalsIgnoreCase("sum")){
+                kq = "tong la: "+ (a+b);
             }else{
-                kq = "tich " + (a*b);
+                kq="moi nhap tong";
             }
-            outServer.println(kq);
+            outserver.println(kq);
             socket.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
         }
     }
     public static void main(String[] args) throws Exception{
-        serverSocket = new ServerSocket(2345);
-        while (true){
-            socket = serverSocket.accept();
-            SPMTServerThread sp = new SPMTServerThread();
-            sp.start();
+        Scanner input = new Scanner(System.in);
+        System.out.println("moi nhap port");
+        int port = input.nextInt();
+        input.nextLine();
+        serversocket = new ServerSocket(port);
+        while(true){
+             socket = serversocket.accept();
+             thread th = new thread();
+             th.start();
         }
     }
-    
 }

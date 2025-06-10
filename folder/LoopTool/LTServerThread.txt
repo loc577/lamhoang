@@ -1,53 +1,50 @@
-package thith;
+package looptool;
 
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class LTServerThread extends Thread{
-    private static ServerSocket serverSocket;
+public class thread extends Thread{
+    private static ServerSocket serversocket;
     private static Socket socket;
-
     @Override
     public void run() {
         try {
-                    Scanner inServer = new Scanner(socket.getInputStream());
-        PrintWriter outServer = new PrintWriter(socket.getOutputStream(),true);
+            Scanner inserver = new Scanner(socket.getInputStream());
+            PrintWriter outserver = new PrintWriter(socket.getOutputStream(),true);
         
-        String cp = inServer.nextLine();
-        
-        String s[] = cp.split(" ");
-        String kq = tinhToan(s[0],s[1]);
-        
-        outServer.println(kq);
-        socket.close();
+            String s = inserver.nextLine();
+            String a[] = s.split(" ");
+            String kq = tinhtoan(a[0],a[1]);
+            outserver.println(kq);
+            socket.close();
         } catch (Exception e) {
-            e.printStackTrace();
         }
-    }
-    private static String tinhToan(String cp, String nS){
-        int n = Integer.parseInt(nS);
-        int s;
-        if(cp.equalsIgnoreCase("sum")){
-            s = 0;
-            for(int i = 1;i<= n;i++){
-                s = s + i;
-            }
-        }else {
-            s = 1;
-            for(int i = 1;i<=n;i++){
-                s = s * i;
-            }
-        }
-        return (s + "");
     }
     public static void main(String[] args) throws Exception{
-        serverSocket = new ServerSocket(2345);
-        while (true){
-            socket = serverSocket.accept();
-            LTServerThread lt = new LTServerThread();
-            lt.start();
+        Scanner input = new Scanner(System.in);
+        System.out.println("nhap port: ");
+        int port = input.nextInt();
+        input.nextLine();
+        serversocket = new ServerSocket(port);
+        while (true) {            
+            socket = serversocket.accept();
+            thread th = new thread();
+            th.start();
         }
+    }
+    private static String tinhtoan(String aS, String bS) {
+        int b = Integer.parseInt(bS);
+        int s = 1;
+        if(aS.equalsIgnoreCase("mul")){
+                for(int i = 1; i<=b;i++){
+                s = s*i;
+        }
+        }else{
+            return "co cai nit";
+        }
+
+       return s+ "";
     }
 }

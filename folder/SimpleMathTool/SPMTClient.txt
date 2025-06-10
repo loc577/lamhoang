@@ -1,27 +1,30 @@
-package thith;
+package tong2so;
 
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class SPMTClient {
-    public static void main(String[] args) throws Exception {
-        while (true){
-            Socket socket = new Socket("localhost", 2345);
+public class client {
+    public static void main(String[] args) throws Exception{
+        Scanner input= new Scanner(System.in);
+        System.out.println("nhap dia chi");
+        String dc = input.nextLine();
+        System.out.println("nhap port");
+        int port = input.nextInt();
+        input.nextLine();
+        Socket socket = new Socket(dc,port);
         
-            Scanner inClient = new Scanner(socket.getInputStream());
-            PrintWriter outClient = new PrintWriter(socket.getOutputStream(),true);
-
-            Scanner inputKB = new Scanner(System.in);
-            System.out.println("nhap cu phap: ");
-
-            String cp = inputKB.nextLine();
-
-            outClient.println(cp);
-            String kq = inClient.nextLine();
-
-            System.out.println(kq);
-            socket.close();
-        }
+        Scanner inclient= new Scanner(socket.getInputStream());
+        PrintWriter outclient = new PrintWriter(socket.getOutputStream(),true);
+        
+        System.out.println("nhap cu phap");
+        String s = input.nextLine();
+        
+        outclient.println(s);
+        String kq = inclient.nextLine();
+        
+        System.out.println(kq);
+        socket.close();
+        
     }
 }

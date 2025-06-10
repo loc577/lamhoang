@@ -1,4 +1,4 @@
-package thith;
+package datetime;
 
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -6,40 +6,45 @@ import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Scanner;
- 
-public class DTServerThread extends Thread{
-        private static ServerSocket serverSocket;
-        private static Socket socket;
 
+public class thread extends Thread{
+    private static ServerSocket serversocket;
+    private static Socket socket;
     @Override
     public void run() {
         try {
-            Scanner inServer = new Scanner(socket.getInputStream());
-            PrintWriter outServer = new PrintWriter(socket.getOutputStream(),true);
-            String s = inServer.nextLine();
-            Calendar cal = Calendar.getInstance();
+            Scanner inserver = new Scanner(socket.getInputStream());
+            PrintWriter outserver = new PrintWriter(socket.getOutputStream(),true);
             
+            String s = inserver.nextLine();
+            
+            Calendar cal = Calendar.getInstance();
             SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy:MM:dd");
-            SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mm:ss");
+            
             String kq;
             if(s.equalsIgnoreCase("date")){
                 kq = sdfDate.format(cal.getTime());
-            }else{
-                kq = sdfTime.format(cal.getTime());
+            }else{ 
+                kq = "moi nhap date";
             }
-            outServer.println(kq);
+            outserver.println(kq);
             socket.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     public static void main(String[] args) throws Exception{
-         ServerSocket serverSocket = new ServerSocket(2345);
-         while (true){
-             socket = serverSocket.accept();
-             DTServerThread dt = new DTServerThread();
-             dt.start();
-         }
-    }
+        Scanner input = new Scanner(System.in);
+        System.out.println("nhap port: ");
+        int port = input.nextInt();
+        input.nextLine();
+        serversocket = new ServerSocket(port);
+        while (true) {            
+            socket = serversocket.accept();
+            thread th = new thread();
+            th.start();
+        }
         
+    }
+    
 }

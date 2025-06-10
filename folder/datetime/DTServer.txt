@@ -1,4 +1,4 @@
-package thith;
+package datetime;
 
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -7,28 +7,28 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Scanner;
 
-public class DTServer {
-    public static void main(String[] args) throws Exception {
-        ServerSocket serverSocket = new ServerSocket(2345);
-        while (true){
-            Socket socket = serverSocket.accept();
-            
-            Scanner inServer = new Scanner(socket.getInputStream());
-            PrintWriter outServer = new PrintWriter(socket.getOutputStream(),true);
-            String s = inServer.nextLine();
-            Calendar cal = Calendar.getInstance();
-            
-            SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy:MM:dd");
-            SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mm:ss");
-            String kq;
-            if(s.equalsIgnoreCase("date")){
-                kq = sdfDate.format(cal.getTime());
-            }else{
-                kq = sdfTime.format(cal.getTime());
-            }
-            outServer.println(kq);
-            socket.close();
-                    
+public class server {
+    public static void main(String[] args) throws Exception{
+        Scanner input = new Scanner(System.in);
+        System.out.println("nhap port: ");
+        int port = input.nextInt();
+        input.nextLine();
+        ServerSocket serversocket = new ServerSocket(port);
+        Socket socket = serversocket.accept();
+        Scanner inserver= new Scanner(socket.getInputStream());
+        PrintWriter outserver = new PrintWriter(socket.getOutputStream(),true);
+        
+        String s = inserver.nextLine();
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy:MM:dd");
+        
+        String kq;
+        if(s.equalsIgnoreCase("date")){
+            kq = sdfDate.format(cal.getTime());
+        }else{
+            kq = "khong ra gi he he";
         }
+        outserver.println(kq);
+        socket.close();
     }
 }
